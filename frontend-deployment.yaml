@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: imasheshk/k8sfedocker:v1   # ✅ Your image
+        image: pallaaa15/k8sfes104d:v1   # ✅ Your image
         ports:
         - containerPort: 8080             # ✅ Must match app’s internal port
 ---
