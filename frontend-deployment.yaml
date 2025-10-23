@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: imasheshk/k8sfedocker:v1   # ✅ Your image
+        ports:
+        - containerPort: 8080             # ✅ Must match app’s internal port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8085       # Cluster port
+      targetPort: 8080  # Container port
+      nodePort: 30082   # Accessible via http://localhost:30083
+  selector:
+    app: frontend
