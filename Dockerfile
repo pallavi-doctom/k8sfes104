@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y git
 # Clone your frontend repo
 RUN git clone https://github.com/pallavi-doctom/k8sfes104.git .
 
-# Move into the frontend directory (where package.json exists)
-WORKDIR /app/frontend
+# Move into the actual frontend directory (where package.json exists)
+WORKDIR /app/K8S_Ecommerce_Frontend
 
 # Install dependencies and build the React app
 RUN npm install
@@ -20,7 +20,7 @@ FROM tomcat:9-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy React build output into Tomcat webapps
-COPY --from=build-stage /app/frontend/dist /usr/local/tomcat/webapps/ecommerce
+COPY --from=build-stage /app/K8S_Ecommerce_Frontend/dist /usr/local/tomcat/webapps/ecommerce
 
 EXPOSE 8082
 CMD ["catalina.sh", "run"]
